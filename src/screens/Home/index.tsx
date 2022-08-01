@@ -10,6 +10,10 @@ const Home = () => {
     console.log('pressed to add new participant');
   }
 
+  const handleRemoveParticipant = (name: string) => {
+    console.log('pressed to remove participant: ', name);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>{eventName}</Text>
@@ -31,9 +35,9 @@ const Home = () => {
         </Pressable>
       </View>
 
-      <Participant name='Jane Doe' />
-      <Participant name='John Doe' />
-      <Participant name='Jane Doe' />
+      <Participant name='Jane Doe' onRemovePress={handleRemoveParticipant} />
+      <Participant name='John Doe' onRemovePress={handleRemoveParticipant} />
+      <Participant name='Jane Doe' onRemovePress={handleRemoveParticipant} />
     </View>
   );
 };
