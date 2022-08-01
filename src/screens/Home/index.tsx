@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { styles } from './styles';
 
 const Home = () => {
@@ -8,6 +8,15 @@ const Home = () => {
     <View style={styles.container}>
       <Text style={styles.eventName}>{eventName}</Text>
       <Text style={styles.eventDate}>{eventDate}</Text>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Participant name"
+        placeholderTextColor={'#6b6b6b'}
+        autoCapitalize='words'
+        maxLength={50}
+        autoCorrect={false}
+        autoComplete={'off'}
+      />
     </View>
   );
 };
