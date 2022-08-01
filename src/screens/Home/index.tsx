@@ -7,26 +7,27 @@ const Home = () => {
 
   const handleAddParticipant = () => {
     console.log('pressed to add new participant');
-    
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>{eventName}</Text>
       <Text style={styles.eventDate}>{eventDate}</Text>
-      <TextInput 
-        style={styles.input} 
-        placeholder="Participant name"
-        placeholderTextColor={'#6b6b6b'}
-        autoCapitalize='words'
-        maxLength={50}
-        autoCorrect={false}
-        autoComplete={'off'}
-      />
+      <View style={styles.form}>
+        <TextInput 
+          style={styles.input} 
+          placeholder="Participant name"
+          placeholderTextColor={'#6b6b6b'}
+          autoCapitalize='words'
+          maxLength={50}
+          autoCorrect={false}
+          autoComplete={'off'}
+        />
 
-      <Pressable style={styles.button} onPress={handleAddParticipant}>
-        <Text style={styles.buttonText}>+</Text>
-      </Pressable>
+        <Pressable style={styles.button} onPress={handleAddParticipant}>
+          <Text style={styles.buttonText}>+</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
