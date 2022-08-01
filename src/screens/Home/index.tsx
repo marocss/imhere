@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import Participant from '../../components/Participant';
 import { styles } from './styles';
@@ -10,9 +11,16 @@ const Home = () => {
     console.log('pressed to add new participant');
   }
 
-  const handleRemoveParticipant = (name: string) => {
-    console.log('pressed to remove participant: ', name);
-  }
+  const handleRemoveParticipant = useCallback(
+    (name: string) => {
+      console.log('pressed to remove participant: ', name);
+    },
+    [],
+  )
+  
+  // const handleRemoveParticipant = (name: string) => {
+  //   console.log('pressed to remove participant: ', name);
+  // }
 
   return (
     <View style={styles.container}>
@@ -38,6 +46,7 @@ const Home = () => {
       <Participant name='Jane Doe' onRemovePress={handleRemoveParticipant} />
       <Participant name='John Doe' onRemovePress={handleRemoveParticipant} />
       <Participant name='Jane Doe' onRemovePress={handleRemoveParticipant} />
+      <Participant name='John Doe' onRemovePress={handleRemoveParticipant} />
     </View>
   );
 };
