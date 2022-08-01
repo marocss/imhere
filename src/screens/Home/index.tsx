@@ -31,9 +31,9 @@ const Home = () => {
         </Pressable>
       </View>
 
-      <Participant />
-      <Participant />
-      <Participant />
+      <Participant name='Jane Doe' />
+      <Participant name='John Doe' />
+      <Participant name='Jane Doe' />
     </View>
   );
 };
