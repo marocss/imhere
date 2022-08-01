@@ -1,9 +1,15 @@
-import { Text, TextInput, View } from 'react-native';
+import { Pressable, Text, TextInput, View } from 'react-native';
 import { styles } from './styles';
 
 const Home = () => {
   const eventName = 'Event Name'
   const eventDate = new Date().toDateString()
+
+  const handleAddParticipant = () => {
+    console.log('pressed to add new participant');
+    
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>{eventName}</Text>
@@ -17,6 +23,10 @@ const Home = () => {
         autoCorrect={false}
         autoComplete={'off'}
       />
+
+      <Pressable style={styles.button} onPress={handleAddParticipant}>
+        <Text style={styles.buttonText}>+</Text>
+      </Pressable>
     </View>
   );
 };

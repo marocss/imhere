@@ -25,4 +25,16 @@ export const styles = StyleSheet.create({
     padding: 16,
     marginTop: 8
   },
+  button: {
+    width: 56,
+    height: 56,
+    borderRadius: 4,
+    backgroundColor: '#31cf67',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 24
+  }
 });
