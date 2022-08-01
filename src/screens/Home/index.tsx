@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import Participant from '../../components/Participant';
 import { styles } from './styles';
 
@@ -24,6 +24,21 @@ const Home = () => {
     [],
   )
 
+  const renderItem = ({ item }: { item: string }) => {
+    return (
+      <Participant 
+        name={item} 
+        onRemovePress={handleRemoveParticipant} 
+      />
+    )
+  }
+
+  const renderEmptyComponent = () => {
+    return (
+      <Text style={styles.listEmptyText}>No participants were added yet. Add a new participant to your list!</Text>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>{eventName}</Text>
@@ -45,7 +60,15 @@ const Home = () => {
         </Pressable>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>        
+      <FlatList 
+        data={participants}
+        keyExtractor={item => item}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={renderEmptyComponent}
+        bounces={false}
+      />
+      {/* <ScrollView showsVerticalScrollIndicator={false}>        
         {
           participants.map(participant => {
             return (
@@ -57,7 +80,7 @@ const Home = () => {
             )
           })
         }
-      </ScrollView>
+      </ScrollView> */}
     </View>
   );
 };
