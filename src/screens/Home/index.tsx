@@ -1,15 +1,21 @@
 import { useCallback, useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import Participant from '../../components/Participant';
 import { styles } from './styles';
 
 const Home = () => {
   const eventName = 'Event Name'
   const eventDate = new Date().toDateString()
+  const participants = ['Jane Doe', 'John Doe', 'Bob', 'Robson', 
+  'Jane Doe 2', 'John Doe 2', 'Bob 2', 'Robson 2', 
+  'Jane Doe 3', 'John Doe 3', 'Bob 3', 'Robson 3']
 
-  const handleAddParticipant = () => {
-    console.log('pressed to add new participant');
-  }
+  const handleAddParticipant = useCallback(
+    () => {
+      console.log('pressed to add new participant');
+    },
+    [],
+  )
 
   const handleRemoveParticipant = useCallback(
     (name: string) => {
@@ -17,10 +23,6 @@ const Home = () => {
     },
     [],
   )
-  
-  // const handleRemoveParticipant = (name: string) => {
-  //   console.log('pressed to remove participant: ', name);
-  // }
 
   return (
     <View style={styles.container}>
@@ -43,10 +45,19 @@ const Home = () => {
         </Pressable>
       </View>
 
-      <Participant name='Jane Doe' onRemovePress={handleRemoveParticipant} />
-      <Participant name='John Doe' onRemovePress={handleRemoveParticipant} />
-      <Participant name='Jane Doe' onRemovePress={handleRemoveParticipant} />
-      <Participant name='John Doe' onRemovePress={handleRemoveParticipant} />
+      <ScrollView showsVerticalScrollIndicator={false}>        
+        {
+          participants.map(participant => {
+            return (
+              <Participant 
+                key={participant} 
+                name={participant} 
+                onRemovePress={handleRemoveParticipant} 
+              />
+            )
+          })
+        }
+      </ScrollView>
     </View>
   );
 };
