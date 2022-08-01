@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { FlatList, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, FlatList, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import Participant from '../../components/Participant';
 import { styles } from './styles';
 
@@ -8,10 +8,20 @@ const Home = () => {
   const eventDate = new Date().toDateString()
   const participants = ['Jane Doe', 'John Doe', 'Bob', 'Robson', 
   'Jane Doe 2', 'John Doe 2', 'Bob 2', 'Robson 2', 
-  'Jane Doe 3', 'John Doe 3', 'Bob 3', 'Robson 3']
+  'Jane Doe 3', 'John Doe 3', 'Bob 3', 'Robson 3',
+  'Jane Doe 4', 'John Doe 4', 'Bob 4', 'Robson 4',
+  'Jane Doe 5', 'John Doe 5', 'Bob 5', 'Robson 5']
 
   const handleAddParticipant = useCallback(
     () => {
+      const isUserAlreadyAParticipant = participants.includes('Bob')
+      if (isUserAlreadyAParticipant) {
+        const alertTitle = 'Error'
+        const alertMessage = 'User is already on the list.'
+        Alert.alert(alertTitle, alertMessage)
+        return
+      }
+
       console.log('pressed to add new participant');
     },
     [],
@@ -19,6 +29,20 @@ const Home = () => {
 
   const handleRemoveParticipant = useCallback(
     (name: string) => {
+      const alertTitle = 'Remove'
+      const alertMessage = `Are you sure you want to remove ${name} from the participants?`
+      Alert.alert(alertTitle, alertMessage, [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => Alert.alert(`Removed ${name}`)
+        }
+      ])
+
       console.log('pressed to remove participant: ', name);
     },
     [],
@@ -68,19 +92,6 @@ const Home = () => {
         ListEmptyComponent={renderEmptyComponent}
         bounces={false}
       />
-      {/* <ScrollView showsVerticalScrollIndicator={false}>        
-        {
-          participants.map(participant => {
-            return (
-              <Participant 
-                key={participant} 
-                name={participant} 
-                onRemovePress={handleRemoveParticipant} 
-              />
-            )
-          })
-        }
-      </ScrollView> */}
     </View>
   );
 };
