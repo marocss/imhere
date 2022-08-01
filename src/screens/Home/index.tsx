@@ -1,4 +1,5 @@
 import { Pressable, Text, TextInput, View } from 'react-native';
+import Participant from '../../components/Participant';
 import { styles } from './styles';
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
     <View style={styles.container}>
       <Text style={styles.eventName}>{eventName}</Text>
       <Text style={styles.eventDate}>{eventDate}</Text>
+
       <View style={styles.form}>
         <TextInput 
           style={styles.input} 
@@ -28,6 +30,10 @@ const Home = () => {
           <Text style={styles.buttonText}>+</Text>
         </Pressable>
       </View>
+
+      <Participant />
+      <Participant />
+      <Participant />
     </View>
   );
 };
