@@ -4,13 +4,11 @@ import Participant from '../../components/Participant';
 import { styles } from './styles';
 
 const Home = () => {
+  const [participants, setParticipants] = useState(['Bob'])
+
   const eventName = 'Event Name'
   const eventDate = new Date().toDateString()
-  const participants = ['Jane Doe', 'John Doe', 'Bob', 'Robson', 
-  'Jane Doe 2', 'John Doe 2', 'Bob 2', 'Robson 2', 
-  'Jane Doe 3', 'John Doe 3', 'Bob 3', 'Robson 3',
-  'Jane Doe 4', 'John Doe 4', 'Bob 4', 'Robson 4',
-  'Jane Doe 5', 'John Doe 5', 'Bob 5', 'Robson 5']
+
 
   const handleAddParticipant = useCallback(
     () => {
@@ -21,6 +19,8 @@ const Home = () => {
         Alert.alert(alertTitle, alertMessage)
         return
       }
+
+      setParticipants(prevState => [...prevState, 'Robson'])
 
       console.log('pressed to add new participant');
     },
