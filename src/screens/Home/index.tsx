@@ -4,7 +4,8 @@ import Participant from '../../components/Participant';
 import { styles } from './styles';
 
 const Home = () => {
-  const [participants, setParticipants] = useState(['Bob'])
+  const [participants, setParticipants] = useState<string[]>([])
+  const [participantName, setParticipantName] = useState('')
 
   const eventName = 'Event Name'
   const eventDate = new Date().toDateString()
@@ -12,7 +13,8 @@ const Home = () => {
 
   const handleAddParticipant = useCallback(
     () => {
-      const isUserAlreadyAParticipant = participants.includes('Bob')
+      const trimmedParticipantName = participantName.trim()
+      const isUserAlreadyAParticipant = participants.includes(trimmedParticipantName)
       if (isUserAlreadyAParticipant) {
         const alertTitle = 'Error'
         const alertMessage = 'User is already on the list.'
@@ -20,11 +22,10 @@ const Home = () => {
         return
       }
 
-      setParticipants(prevState => [...prevState, 'Robson'])
-
-      console.log('pressed to add new participant');
+      setParticipants(prevState => [...prevState, trimmedParticipantName])
+      setParticipantName('')
     },
-    [],
+    [participantName],
   )
 
   const handleRemoveParticipant = useCallback(
@@ -77,6 +78,10 @@ const Home = () => {
           maxLength={50}
           autoCorrect={false}
           autoComplete={'off'}
+          onChangeText={setParticipantName}
+          value={participantName}
+          returnKeyType="done"
+          onSubmitEditing={handleAddParticipant}
         />
 
         <Pressable style={styles.button} onPress={handleAddParticipant}>
