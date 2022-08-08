@@ -24,21 +24,46 @@ const Home = () => {
     setParticipantName('')
   }
 
-  const handleRemoveParticipant = (name: string) => {
-    const alertTitle = 'Remove'
-    const alertMessage = `Are you sure you want to remove ${name} from the participants?`
-    Alert.alert(alertTitle, alertMessage, [
-      {
-        text: 'Cancel',
-        style: 'cancel'
-      },
-      {
-        text: 'Remove',
-        style: 'destructive',
-        onPress: () => setParticipants(prevState =>  prevState.filter(participant => participant !== name))
-      }
-    ])
-  }
+  const handleRemoveParticipant = useCallback(
+    (name: string) => {
+      // Participants is saved as the first state value
+      // but state update works using prevState
+      // Without callback the memo on Participant component needs to be updated
+      // to add a areEqual condition
+      console.log(participants);
+      
+      const alertTitle = 'Remove'
+      const alertMessage = `Are you sure you want to remove ${name} from the participants?`
+      Alert.alert(alertTitle, alertMessage, [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => setParticipants(prevState =>  prevState.filter(participant => participant !== name))
+        }
+      ])
+    },
+    [],
+  )
+  
+  // const handleRemoveParticipant = (name: string) => {
+  //   const alertTitle = 'Remove'
+  //   const alertMessage = `Are you sure you want to remove ${name} from the participants?`
+  //   Alert.alert(alertTitle, alertMessage, [
+  //     {
+  //       text: 'Cancel',
+  //       style: 'cancel'
+  //     },
+  //     {
+  //       text: 'Remove',
+  //       style: 'destructive',
+  //       onPress: () => setParticipants(prevState =>  prevState.filter(participant => participant !== name))
+  //     }
+  //   ])
+  // }
 
   const renderItem = ({ item }: { item: string }) => {
     return (
