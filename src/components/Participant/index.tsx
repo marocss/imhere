@@ -25,8 +25,8 @@ const Participant = ({ name, onRemovePress }: Props) => {
   );
 };
 
-// export default memo(Participant, (prevProps, nextProps) => {
-//   return prevProps.name === nextProps.name
-// });
-export default memo(Participant);
+export default memo(Participant, (prevProps, nextProps) => {
+  return prevProps.name === nextProps.name
+});
+// export default memo(Participant);
 // export default Participant
