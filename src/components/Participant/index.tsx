@@ -8,11 +8,17 @@ type Props = {
 }
 
 const Participant = ({ name, onRemovePress }: Props) => {
+  console.log('ren participant');
+  
+  const handleRemoveButtonPress = () => {
+    onRemovePress(name)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{name}</Text>
 
-      <Pressable style={styles.button} onPress={() => onRemovePress(name)}>
+      <Pressable style={styles.button} onPress={handleRemoveButtonPress}>
         <Text style={styles.buttonText}>-</Text>
       </Pressable>
     </View>
@@ -22,3 +28,5 @@ const Participant = ({ name, onRemovePress }: Props) => {
 export default memo(Participant, (prevProps, nextProps) => {
   return prevProps.name === nextProps.name
 });
+// export default memo(Participant);
+// export default Participant

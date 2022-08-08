@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Alert, FlatList, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import Participant from '../../components/Participant';
 import { styles } from './styles';
@@ -10,44 +10,35 @@ const Home = () => {
   const eventName = 'Event Name'
   const eventDate = new Date().toDateString()
 
+  const handleAddParticipant = () => {
+    const trimmedParticipantName = participantName.trim()
+    const isUserAlreadyAParticipant = participants.includes(trimmedParticipantName)
+    if (isUserAlreadyAParticipant) {
+      const alertTitle = 'Error'
+      const alertMessage = 'User is already on the list.'
+      Alert.alert(alertTitle, alertMessage)
+      return
+    }
 
-  const handleAddParticipant = useCallback(
-    () => {
-      const trimmedParticipantName = participantName.trim()
-      const isUserAlreadyAParticipant = participants.includes(trimmedParticipantName)
-      if (isUserAlreadyAParticipant) {
-        const alertTitle = 'Error'
-        const alertMessage = 'User is already on the list.'
-        Alert.alert(alertTitle, alertMessage)
-        return
+    setParticipants(prevState => [...prevState, trimmedParticipantName])
+    setParticipantName('')
+  }
+
+  const handleRemoveParticipant = (name: string) => {
+    const alertTitle = 'Remove'
+    const alertMessage = `Are you sure you want to remove ${name} from the participants?`
+    Alert.alert(alertTitle, alertMessage, [
+      {
+        text: 'Cancel',
+        style: 'cancel'
+      },
+      {
+        text: 'Remove',
+        style: 'destructive',
+        onPress: () => setParticipants(prevState =>  prevState.filter(participant => participant !== name))
       }
-
-      setParticipants(prevState => [...prevState, trimmedParticipantName])
-      setParticipantName('')
-    },
-    [participantName],
-  )
-
-  const handleRemoveParticipant = useCallback(
-    (name: string) => {
-      const alertTitle = 'Remove'
-      const alertMessage = `Are you sure you want to remove ${name} from the participants?`
-      Alert.alert(alertTitle, alertMessage, [
-        {
-          text: 'Cancel',
-          style: 'cancel'
-        },
-        {
-          text: 'Remove',
-          style: 'destructive',
-          onPress: () => Alert.alert(`Removed ${name}`)
-        }
-      ])
-
-      console.log('pressed to remove participant: ', name);
-    },
-    [],
-  )
+    ])
+  }
 
   const renderItem = ({ item }: { item: string }) => {
     return (
@@ -99,6 +90,6 @@ const Home = () => {
       />
     </View>
   );
-};
+}; 
 
 export default Home;
